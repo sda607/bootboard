@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor  //기본 생성자 자동 추가
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity{
     @Id //pk필드
     @GeneratedValue(strategy = GenerationType.IDENTITY)//PK생성규칙
     private Long id;
@@ -29,4 +29,8 @@ public class Posts {
         this.author = author;
     }
 
+    public void update(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 }
