@@ -1,5 +1,7 @@
 package com.boot.board.springboot.web;
 
+import com.boot.board.springboot.config.auth.LoginUser;
+import com.boot.board.springboot.config.auth.dto.SessionUser;
 import com.boot.board.springboot.service.posts.PostsService;
 import com.boot.board.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +18,15 @@ public class IndexController {
 
     //전체 조회
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user) {
         model.addAttribute("posts", postsService.findAllDesc());
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
+
+
     //등록
     @GetMapping("/posts/save")
     public String postsSave(){
